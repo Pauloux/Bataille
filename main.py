@@ -115,7 +115,7 @@ def jouer_coup():
   """
   global mains_joueurs
   print("\n")
-  reponse = input("Appuyez sur entrer pour jouer un coup ou entrez 'scores' pour voir le nombre de cartes des joueurs. ")
+  reponse = input("Appuyez sur entrer ou entrez 'scores'")
   if reponse == "scores":
     print(joueurs[0] + " a " + str(len(mains_joueurs[0])) + " cartes et " + joueurs[1] + " a " + str(len(mains_joueurs[1])) + " cartes")
   carte_joueur_1 = mains_joueurs[0][0]
