@@ -2,10 +2,10 @@ from random import *
 
 #Définir le jeu de carte:
 jeu = []
-num = ["2", "3", "4", "5", "6", "7", "8", "9", "X", "V", "D", "R", "A"]
+num = ["7", "8", "9", "X", "V", "D", "R", "A"]
 coul = ["C", "K", "T", "P"]
 mains_joueurs = [[], []]
-valeurs_cartes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+valeurs_cartes = [1, 2, 3, 4, 5, 6, 7, 8]
 vainqueur = ""
 
 #Construire le jeu de cartes
@@ -62,10 +62,10 @@ def bataille():
   iteration = 0
   #si un joueur n'a plus assez de carte on change la carte de celui qui en a pour que ça ne fasse pas la bataille sinon ça fait un out of range
   while fini == False:
-    if len(mains_joueurs[0]) == 1 + iteration * 2:
+    if len(mains_joueurs[0]) <= 3 + iteration * 2:
       mains_joueurs[1].append(mains_joueurs[1].pop(0))
       return
-    if len(mains_joueurs[1]) == 1 + iteration * 2:
+    if len(mains_joueurs[1]) <= 3 + iteration * 2:
       mains_joueurs[0].append(mains_joueurs[0].pop(0))
       return
     print("Il y a bataille ! ")
@@ -115,9 +115,22 @@ def jouer_coup():
   """
   global mains_joueurs
   print("\n")
-  reponse = input("Appuyez sur entrer ou entrez 'scores'")
+  print("Appuyez sur entrer ou entrez 'scores' pour voir le score ou entrez 'débloquer' suivi du nombre cartes à échanger (sans espaces)(5 si laissé vide)")
+  reponse = input("- ")
   if reponse == "scores":
     print(joueurs[0] + " a " + str(len(mains_joueurs[0])) + " cartes et " + joueurs[1] + " a " + str(len(mains_joueurs[1])) + " cartes")
+  if reponse[0:9] == "débloquer":
+    if len(reponse) == 10:
+      cartes_a_echanger = int(reponse[9])
+    elif len(reponse) == 11:
+      cartes_a_echanger = int(reponse[9] + reponse[10])
+    else :
+      cartes_a_echanger = 5
+    for i in range (cartes_a_echanger):
+      index1 = randint(0, len(mains_joueurs[0]) - 1)
+      index2 = randint(0, len(mains_joueurs[1]) - 1)
+      print("Les cartes " + mains_joueurs[0][index1] + " et " + mains_joueurs[1][index2] + " sont échangés")
+      mains_joueurs[0][index1], mains_joueurs[1][index2] = mains_joueurs[1][index2], mains_joueurs[0][index1]
   carte_joueur_1 = mains_joueurs[0][0]
   carte_joueur_2 = mains_joueurs[1][0]
   print(joueurs[0] + " pose la carte : " + carte_joueur_1)
